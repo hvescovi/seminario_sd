@@ -11,9 +11,8 @@
 \usepackage[utf8]{inputenc}
 
 \title{Sistemas Multimídia Distribuidos}
-\author{H. Psaier; S. Dustdar; slides by H. V. Netto}                
-\institute{Received: 21 July 2009 / Accepted: 11 July 2010 / Published online: 5 August 2010
-Springer-Verlag 2010}     
+\author{}                
+\institute{}     
 %\date{\today}         
 \date{11/08/2011}
 
@@ -39,9 +38,9 @@ Springer-Verlag 2010}
  \end{itemize}
 \end{frame}
 
-%\section{Panorama geral}
+\section{Panorama geral}
 
-%\subsection{1.1 The complexity problem}
+\subsection{1.1 The complexity problem}
 
 \begin{frame}
  \frametitle{Panorama}
@@ -69,6 +68,8 @@ atraso da distribuição de cada elemento (latência) e taxa de eliminação/per
 largura de banda da rede e memória (para buffer)
 \end{itemize}
 \end{frame}
+
+\subsection{Introdução}
 
 \begin{frame}
   \frametitle{Introdução}
@@ -176,8 +177,8 @@ Janela de escassez
   \item As limitações estão nos recursos necessários, especialmente 
 na quantidade e qualidade de fornecimento de fluxos
   \item É necessário alocar e escalonar os recursos
-  \item \emph{Antes que a janela de escassez seja alcançada, um sistema tem recursos insuficientes
-para executar as aplicações relevantes}
+  \item \emph{Antes que a janela de escassez seja alcançada, 
+um sistema tem recursos insuficientes para executar as aplicações relevantes}
 \end{itemize}
 \end{frame}
 
@@ -194,15 +195,14 @@ para executar as aplicações relevantes}
   \frametitle{Características}
 Algumas definições
 \begin{itemize}
-  \item mídia contínua é uma sequência de valores discretos que substituem-se uns aos outros
-com o passar do tempo; exemplo: uma imagem é amostrada 25 vezes 
-por segundo para dar impressão de movimento com qualidade de TV; um sinal sonoro é amostrado
-8000 vezes por segundo para transmitir fala com a qualidade de um telefone
-  \item os fluxos multimídia são baseados no tempo, ou isocrônicos: os tempos nos quais
+  \item mídia contínua: sequência de valores discretos que substituem-se uns aos outros
+com o passar do tempo; ex: uma imagem é amostrada 25 vezes/seg. para 
+dar impressão de movimento com qualidade de TV; um sinal sonoro é amostrado
+8000 vezes/seg para transmitir fala com a qualidade de um telefone
+  \item fluxos multimídia são baseados no tempo\footnote{ou isocrônicos}: os tempos nos quais
 os valores são reproduzidos ou gravados afetam a validade dos dados, definem 
 a \emph{semântica} ou conteúdo do fluxo
-  \item dados multimídia são volumosos: precisam de maior desempenho de entrada/saída que os
-sistemas convencionais
+  
 \end{itemize}
 \end{frame}
 
@@ -216,40 +216,160 @@ sistemas convencionais
 \begin{frame}
   \frametitle{Características}
 \begin{itemize}
-  \item 
+\item dados multimídia são volumosos: precisam de maior desempenho de entrada/saída que os
+sistemas convencionais
+  \item utiliza-se compactação, embora transformações, como mistura de vídeo, sejam 
+difíceis de realizar com fluxos compactados.
+  \item compactação pode reduzir requisitos de largura de banda, mas não requisitos de
+temporização de dados contínuos
+  \item codecs em hardware podem realizar a compactação; codecs em software oferecem
+maior flexibilidade
 \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Características}
 \begin{itemize}
-  \item 
+  \item método MPEG é assimétrico, com algoritmo de compactação complexo e descompactação
+simples
+  \item isso ajuda em conferências no desktop: compactação feita por codec em hardware, 
+descompactação via software, ????permitindo que o número de participantes na
+vídeoconferência varie sem considerar o número de 
+codecs no computador de cada usuário???? NÃO ENTENDI ESSA FRASE
+\end{itemize}
+\end{frame}
+
+\subsection{Gerenciamento de qualidade de serviço}
+
+\begin{frame}
+  \frametitle{Gerenciamento da Qualidade de Serviço}
+\begin{itemize}
+  \item aplicações multimídia executadas em redes de PC's competem por recursos: ciclos 
+de processador, barramento, capacidade de buffer)
+  \item redes são projetadas pra que mensagens de diferentes origens sejam intercaladas,
+permitindo a existência de muitos canais de comunicação virtuais nos mesmos canais físicos
+  \item Ethernet: gerencia um meio de transmissão compartilhado na base do melhor esforço
+(QUE BUDEGA É ESSA! apenas não-confiável?)
+  \item enfim: rodízio, tempos aleatórios, etc, podem não satisfazer as necessidades das
+aplicações multimídia: distribuição atrasada não tem valor.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Características}
+FIGURA 17.4: arquitetura abstrata com fluxos de mídia de dados gerados continuamente
+\end{frame}
+
+\begin{frame}
+FIGURA 17.5: requisitos de recurso para a fig 17.4
+\end{frame}
+
+\begin{frame}
+Principais responsabilidades do gerenciador de qualidade do serviço:
+FIGURA 17.6: a tarefa do gerenciador de qualidade do serviço
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{QoS: Negociação}
+A aplicação especifica requisitos de qualidade através de 3 parâmetros: 
+\begin{itemize}
+  \item largura de banda: a taxa na qual os dados fluem pelo fluxo
+  \item latência: tempo exigido para um elemento de dados individual se mover
+em um fluxo, da origem até o destino; a variação dessa latência é denominada \emph{jitter}
+  \item taxa de perda: quadros de vídeo ou amostras de áudio eliminados; até 1\%; 
+para aplicações críticas, bem menos!
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+ 
+FIGURA do grafico do JITTER
+jitter.jpg
+referência: http://www.ipg.pt/user/~sduarte/rc/Trabalhos2005/QoS/necessidadesQoS.htm
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{QoS: Negociação}
+Exemplos de descrição dos parâmetros: 
+\begin{itemize}
+ \item descrevendo as características de um fluxo: numa aplicação de conferência,
+é preciso largura de banda média de 1,5Mbps; atraso máximo
+de 150ms para evitar hiatos na palestra; o algoritmo de descompactação
+no destino pode produzir imagens aceitáveis com uma perda de 1 quadro em 100
+  \item descrevendo capacidade de fluxo: uma rede pode fornecer conexões de largura de banda
+de 64kpbs; os algoritmos de enfileiramento garantem atrasos de menos de 10ms; o sistema
+de transmissão garante uma taxa de perda menor que 1 em 10e6.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS: Negociação}
+Os parâmetros são interdependentes. Exemplos:
+\begin{itemize}
+  \item taxa de perda depende de estouro do buffer e dados dependentes do tempo
+chegando atrasados; logo, quando maior a largura de banda e o atraso, menor será
+a taxa de perda
+  \item quanto menor a largura de banda, em relação à carga, 
+mais mensagens serão armazenadas e mais buffers serão necessários; quanto maior o buffer,
+mais provável que mensagens esperem outras que estão na frente para serem atendidas, e
+assim, maior será o atraso. ESTUDAR ESSA PARTE!!!
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS}
+Especificando parâmetros de QoS: largura de banda
+\begin{itemize}
+  \item  para MPEG, a compactação média está entre 1:50 e 1:100, a depender
+do conteúdo; logo, parâmetros de qualidade são citados como valores mínimo, médio e máximo.
+  \item taxa de rajada\footnote{Uma CPU transfere dados via canais ou barramento 
+de duas maneiras, byte a byte ou então em blocos de bytes de cada vez; 
+é esta modalidade de transferência em blocos é chamada de 'modo rajada'.\cite{site1:2011}} 
+(\emph{burst}): considere 3 fluxos de 1Mbps: o primeiro transfere um único quadro de 1Mbit/s;
+o segundo é um fluxo assíncrono de elementos de animação
+com largura de banda média de 1Mbps; o terceiro envia amostra de 
+som de 100bits a cada microssegundo. Os 3 fluxos exigem a mesma largura de banda, porém
+seus padrões de tráfego são diferentes. O parâmetro de rajada define o número máximo de 
+elementos de mídia que podem chegar cedo, isto é, antes do que devam chegar, de acordo
+com a taxa normal. ESTUDAR MAIS SOBRE RAJADA!!
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS}
+\begin{itemize}
+  \item Anderson
+%\cite{Anderson:1993} BAIXAR: Meta-scheduling for distributed continuous media, em ACM
+define o número máximo de mensagens em um fluxo durante qualquer intervalo t como Rt+B,
+onde R é a taxa e B é o tamanho máximo da rajada.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS}
 \begin{itemize}
   \item 
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Características}
+  \frametitle{QoS}
 \begin{itemize}
   \item 
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Características}
+  \frametitle{QoS}
 \begin{itemize}
   \item 
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Características}
+  \frametitle{QoS}
 \begin{itemize}
   \item 
 \end{itemize}
@@ -279,9 +399,9 @@ sistemas convencionais
    FIM% - Obrigado
 \end{frame}
 
-%\section{Referências}
+\section{Referências}
 
 %\bibliographystyle{plain}
-%\bibliography{artigosdois}
+\bibliography{refs}
 
 \end{document}
