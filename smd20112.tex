@@ -1,0 +1,288 @@
+\documentclass[]{beamer}
+% Class options include: notes, notesonly, handout, trans,
+%                        hidesubsections, shadesubsections,
+%                        inrow, blue, red, grey, brown
+
+\usepackage{beamerthemesplit} 
+% Other themes include: beamerthemebars, beamerthemelined, 
+%                       beamerthemetree, beamerthemetreebars  
+\usepackage[brazil]{babel}
+\setbeamertemplate{footline}[frame number] 
+\usepackage[utf8]{inputenc}
+
+\title{Sistemas Multimídia Distribuidos}
+\author{}                
+\institute{}     
+%\date{\today}         
+\date{11/08/2011}
+
+\begin{document}
+
+% Creates title page of slide show using above information
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%\section[Roteiro]{}
+
+% Creates table of contents slide incorporating
+% all \section and \subsection commands
+%\begin{frame}
+%  \tableofcontents
+%\end{frame}
+
+\begin{frame}
+ \frametitle{Abstract}
+ \begin{itemize}
+   \item 
+ \end{itemize}
+\end{frame}
+
+\section{Panorama geral}
+
+\subsection{1.1 The complexity problem}
+
+\begin{frame}
+ \frametitle{Panorama}
+ \begin{itemize}
+   \item Fluxos contínuos de dados em tempo real
+   \item Grandes quantidades de áudio, vídeo e outros elementos, respeitando o critério temporal
+   \item Elementos de dados distribuídos com atrasos geralmente são eliminados
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Panorama II}
+ \begin{itemize}
+  \item Especificação: em termos de taxa de passagem de dados (largura de banda),
+atraso da distribuição de cada elemento (latência) e taxa de eliminação/perca de pacotes
+  \item Latência: especialmente importante em aplicativos interativos
+  \item Perca de pacotes é aceitável quando é possível re-sincronizar após o ponto de perda
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Panorama III}
+\begin{itemize}
+  \item Alocação de recursos é referida como qualidade de serviços: alocação de processamento,
+largura de banda da rede e memória (para buffer)
+\end{itemize}
+\end{frame}
+
+\subsection{Introdução}
+
+\begin{frame}
+  \frametitle{Introdução}
+\begin{itemize}
+  \item Fluxos de dados contínuos (streams) baseados no tempo: telefonia pela Internet, 
+vídeoconferência, etc
+  \item A qualidade geral é ruim; é imprópria para: TV digital/interativa, supervisão com vídeo
+  \item Sistemas multimídia são sistemas em tempo real: precisam executar tarefas e apresentar
+resultados de acordo com um escalonamento determinado externamente
+  \item O grau de sucesso desse fornecimento é o QoS (Quality of Service), usufruída
+pelo aplicativo
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+\begin{itemize}
+  \item Diferenças entre os sistemas de tempo real de aviação, processo de fabricação, etc: 
+  \item estes possuem volumes de dados pequenos e prazos finais rígidos; o não cumprimento pode ter
+consequências desastrosas, por isso superestima-se recursos e trabalha-se com atendimento 
+no pior caso
+  \item os sistemas multimídia:
+  \item operam dentro de um ambiente geral, competindo com recursos e banda de rede com
+ outros aplicativos distribuídos
+  \item os requisitos são dinâmicos: mais participantes, mais recursos necessários; ou uma 
+simulação pode requerer mais processamento
+  \item operação de sistemas multimídia em conjunto com outras aplicações: edição de textos, 
+conversa de voz separada, mensagens instantâneas, em meio a uma vídeo-conferência
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+  Serviços providos por um sistema distribuído típico:
+  \begin{itemize}
+    \item vídeoconferência em desktop
+    \item acesso a sequência de vídeo
+    \item transmissão de TV e rádio digital
+  \end{itemize}
+  Recursos para o gerenciamento da qualidade de serviço: largura de banda da rede, ciclos do
+processador e capacidade de memória
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+\begin{itemize}
+  \item FIGURAAAAAAAAAAA 17.1
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+\begin{itemize}
+  \item Sistema distribuído aberto: aplicativos multimídia podem ser iniciados sem organização
+anterior\footnote{O QUE ISSO QUER DIZER EXATAMENTE??} e coexistir na mesma rede
+  \item É necessário haver qualidade do serviço independentemente da qualidade total do sistema
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+Aplicativos multimídia que têm sido implantados:
+\begin{itemize}
+  \item Multimídia baseada na web: permite acesso aos fluxos de áudio e vídeo na Web; buffers
+podem fornecer exibição contínua e suave mas com atraso da origem para o destino (segundos)
+  \item Telefone de rede e áudio-conferência: aplicações de natureza interativa com baixos
+atrasos de RTT\footnote{round-trip time, tempo de ida e volta}
+  \item Vídeo sob demanda: largura de banda, servidor de vídeo e estações, todos dedicados;
+alto uso de buffers no destino
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+Aplicativos muito interativos: problemas...
+\begin{itemize}
+  \item telefonia na Internet - VOIP
+  \item vídeoconferência: restrições de largura de banda e latência\footnote{VER CONCEITO DISSO}
+  \item ensaio de execução musical distribuída: severas restrições de sincronização
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+Exigências das aplicações super-interativas
+\begin{itemize}
+  \item comunicação com baixa latência: RTT de 100 a 300 ms
+  \item estado distribuído síncrono: se um usuário interrompe um vídeo, todos devem 
+ver a interrupção no mesmo quadro
+  \item sincronismo de mídia: o exemplo da execução musical distribuída; 
+Konstantas et al. [1997] aponta até 50ms; fluxos separados de áudio e vídeo devem manter
+sincronismo \emph{labial}\footnote{exemplo: sessão de karaokê distribuída}
+  \item sincronização externa: aplicações cooperativas diversas devem parecer 
+sincronizadas\footnote{Isso é perceptível quando \emph{filmamos a televisão}}
+com os fluxos multimídia baseados no tempo (exemplo: animações de computador, dados CAD, 
+quadros-negros eletrônicos).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+Janela de escassez
+\begin{itemize}
+  \item Sistemas atuais tem capacidade para manipular dados multimídia
+  \item As limitações estão nos recursos necessários, especialmente 
+na quantidade e qualidade de fornecimento de fluxos
+  \item É necessário alocar e escalonar os recursos
+  \item \emph{Antes que a janela de escassez seja alcançada, 
+um sistema tem recursos insuficientes para executar as aplicações relevantes}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Introdução}
+\begin{itemize}
+  \item FIGURA DA JANELA DE ESCASSEZ
+\end{itemize}
+\end{frame}
+
+\subsection{Características dos dados multimídia}
+
+\begin{frame}
+  \frametitle{Características}
+Algumas definições
+\begin{itemize}
+  \item mídia contínua é uma sequência de valores discretos que substituem-se uns aos outros
+com o passar do tempo; exemplo: uma imagem é amostrada 25 vezes 
+por segundo para dar impressão de movimento com qualidade de TV; um sinal sonoro é amostrado
+8000 vezes por segundo para transmitir fala com a qualidade de um telefone
+  \item os fluxos multimídia são baseados no tempo, ou isocrônicos: os tempos nos quais
+os valores são reproduzidos ou gravados afetam a validade dos dados, definem 
+a \emph{semântica} ou conteúdo do fluxo
+  \item dados multimídia são volumosos: precisam de maior desempenho de entrada/saída que os
+sistemas convencionais
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Características}
+\begin{itemize}
+  \item FIGURA QUADRO TAXAS E AMOSTRAS DE DADOS
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Características}
+\begin{itemize}
+  \item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Características}
+\begin{itemize}
+  \item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Características}
+\begin{itemize}
+  \item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Características}
+\begin{itemize}
+  \item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Características}
+\begin{itemize}
+  \item 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Características}
+\begin{itemize}
+  \item 
+\end{itemize}
+\end{frame}
+
+%\begin{frame}
+% \frametitle{}
+% \begin{itemize}
+%   \item 
+%  \end{itemize}
+% \end{frame}
+
+
+
+%\begin{frame}
+% \frametitle{Questionário, exemplo I}
+%  \begin{figure}[hbtp]
+%  \begin{center}
+%   \includegraphics[scale=0.28]{imagens/questionario_exemplo1.png}
+%  \end{center}
+% \end{figure}
+%\end{frame}
+
+
+\begin{frame}
+ \frametitle{FIM}
+   FIM% - Obrigado
+\end{frame}
+
+%\section{Referências}
+
+%\bibliographystyle{plain}
+%\bibliography{artigosdois}
+
+\end{document}
