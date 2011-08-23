@@ -13,8 +13,8 @@
 \title{Sistemas Multimídia Distribuidos}
 \author{}                
 \institute{}     
-%\date{\today}         
-\date{11/08/2011}
+\date{\today}         
+%\date{11/08/2011}
 
 \begin{document}
 
@@ -38,9 +38,7 @@
  \end{itemize}
 \end{frame}
 
-\section{Panorama geral}
-
-\subsection{1.1 The complexity problem}
+\section{Introduçãol}
 
 \begin{frame}
  \frametitle{Panorama}
@@ -69,7 +67,7 @@ largura de banda da rede e memória (para buffer)
 \end{itemize}
 \end{frame}
 
-\subsection{Introdução}
+%\subsection{Introdução}
 
 \begin{frame}
   \frametitle{Introdução}
@@ -189,7 +187,7 @@ um sistema tem recursos insuficientes para executar as aplicações relevantes}
 \end{itemize}
 \end{frame}
 
-\subsection{Características dos dados multimídia}
+\section{Características dos dados multimídia}
 
 \begin{frame}
   \frametitle{Características}
@@ -239,7 +237,7 @@ codecs no computador de cada usuário???? NÃO ENTENDI ESSA FRASE
 \end{itemize}
 \end{frame}
 
-\subsection{Gerenciamento de qualidade de serviço}
+\section{Gerenciamento de qualidade de serviço}
 
 \begin{frame}
   \frametitle{Gerenciamento da Qualidade de Serviço}
@@ -353,30 +351,390 @@ espaço exigida no buffer para evitar perda.
 
 \begin{frame}
   \frametitle{QoS}
+Especificando Latência
 \begin{itemize}
-  \item Latência: PAREI na página 630)
+  \item requisitos do fluxo: um quadro não deve permanecer em buffer, 
+em média, por mais do que 1/R,
+onde R é a velocidade de taxa de quadros de um fluxo, senão ocorrerá acúmulo de trabalho. 
+  \item requisitos da aplicação: ex. conferência, atrasos de ponta a ponta absolutos de não
+mais do que 150ms; reprodução de vídeo, resposta aos comandos Pausa e Parar teve ter latência
+máxima da ordem de 500ms
+  \item jitter\footnote{variação no período entre a distribuição de dois quadros subjacentes}: o
+uso de buffers resolve, mas há um limite. VER ISSO MELHOR!!!!!!!!!!
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS}
+Taxa de perda
+\begin{itemize}
+  \item é o parâmetro mais difícil de especificar; resultam do cálculo de probabilidade 
+estouro em buffers e mensagens atrasadas, baseados em pior caso ou distribuição padrão.
+  \item taxas de perda dadas para período de tempo infinito são inúteis: qualquer perda
+em um tempo curto pode ultrapassar a taxa de longo prazo. (??????)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS}
+Moldagem de tráfego
+\begin{itemize}
+  \item termo que descreve o uso de buffers de saída para suavizar o fluxo de dados.
+  \item modelo LBAP\footnote{ANDERSON 1993 VER REFERÊNCIA} de variações de largura de banda 
+exige regular a taxa de rajada dos fluxos multimídia.
+  \item Fluxos podem ser regulados pela inserção de um buffer na origem e um método de 
+consumo.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{QoS}
 \begin{itemize}
-  \item 
+  \item FIGURA DO BALDE FURADO 17.7
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS - Especificações de fluxo}
+ Um conjunto de parâmetros de qualidade de serviço são conhecidos 
+como especificação de fluxo; há vários exemplos de especificações de fluxo
+e são todos semelhantes, compostos pelos itens:
+  \begin{itemize}
+   \item unidade de transmissão máxima e taxa de transmissão máxima determinam largura de 
+banda máxima exigida pelo fluxo
+   \item tamanho do balde com tokens e a taxa determinam a taxa de rajada do fluxo
+   \item atraso mínimo que uma aplicação pode observar e o jitter máximo que ela
+pode aceitar
+   \item número total aceitável de perdas em certo intervalo e número máximo de perdas
+consecutivas
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{QoS}
 \begin{itemize}
-  \item 
+  \item FIGURA 17.8 agrupamento dos parâmetros, especificao de 
+fluxo RFC\footnote{o que eh rfc} REC 1363
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{QoS}
+  \frametitle{QoS - procedimentos de negociação}
 \begin{itemize}
-  \item 
+  \item os gerenciados de qualidade de serviço estão nos nós
+  \item estratégia simples de negociação: envio da especificação de fluxo para o gerenciador
+da QoS total; verificação no banco de dados local; encaminhamento para o próximo nó, até
+ o destino final; no retorno da mensagem obtem-se a informação sobre a 
+viabilidade do fornecimento de serviço
+  \item aplicações têm requisitos de qualidade de serviço fixos
+  \item é mais apropriado o sistema determinar qual tipo de QoS pode fornecer, e a aplicação
+decide se é aceitável
+  \item é comum especificar um valor desejado e um pior valor
+  \item exemplo: aplicação deseja largura de banda 1,5Mbps, mas pode manipular 1Mbps; o atraso
+deve ser 200ms, mas 300ms seria o pior caso aceitável.
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS - procedimentos de negociação}
+\begin{itemize}
+  \item fluxo com vários destinos: a negociação bifurca de acordo
+com o fluxo de dados; são produzidos valores de pior caso para cada parâmetro da QoS;
+exempos: protocolos SRP, ST-II e RCAP.
+  \item situações com destinos heterogêneos: negociação iniciada pelo destino: 
+RSVP; origens comunicam a existência
+dos fluxos; destinos se conectam aos nó mais próximo através do qual o fluxo passa a extrair
+dados de lá.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS - controle de admissão}
+\begin{itemize}
+  \item regula o acesso aos recursos para evitar sobrecarga e proteger pedidos que não possam
+ser por eles atendidos
+  \item baseado em conhecimento geral da capacidade global do sistema e carga gerada
+por cada aplicação
+  \item recursos com alocador único: simples para controlar a admissão
+  \item recursos com pontos de acesso distribuídos: controle de admissão centralizada
+ou algoritmo de controle de admissão distribuído, para tratar concorrências e conflitos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS - reserva de largura de banda}
+\begin{itemize}
+  \item para fornecer uma QoS garantida: reserva para sua larguda de banda máxima
+  \item aplicações que se tornam inúteis se houver quedas de qualidade
+  \item exemplos: raio X (sintoma aparecer bem no momento de descarte de quadros); 
+armazenamento de vídeos (falhas serão visíveis sempre quando reproduzir o vídeo).
+  \item cálculo simples: em rede de largura de banda B podem ser admitidos s fluxos
+multimídia de largura de banda bs, desde que $\sum_{bs} <= B$
+  \item uma rede token ring com 10Mb/s pode suportar até 10 fluxos de vídeo digital de
+1,5Mb/s.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{QoS - reserva de largura de banda}
+\begin{itemize}
+  \item alocar largura de banda de CPU exige conhecimento do perfil de execução do processo
+aplicativo, que depende do processador usado; não podem ser calculados com precisão.
+  \item tempos de execução não são amplamente usados; têm margens de erro grandes e 
+portabilidade limitada.
+  \item há disperdício quando usa-se reserva baseada nos requisitos máximos.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{QoS - multiplexação estática}
+\begin{itemize}
+  \item suposição: para grande número de fluxos, a largura de banda total
+permanece constante
+  \item quando um fluxo enviar muitos dados, outro fluxo enviará poucos
+  \item isso só ocorrerá em fluxos não-relacionados
+  \item experiências mostram que o tráfego em ambientes típicos contradiz essa hipótese:
+o tráfego agregado mostra semelhança com os fluxos individuais dos quais é composto
+\end{itemize}
+\end{frame}
+
+\section{Gerenciamento de recursos}
+
+\begin{frame}
+  \frametitle{Gerenciamento de recursos}
+  o recurso precisa ter capacidade suficiente (desempenho) e estar disponível
+(escalonamento) quando a aplicação precisar
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ger. de recursos - escalonamento}
+\begin{itemize}
+  \item processos tem prioridades, determinada por critérios
+  \item uso intenso de E/S recebem maior prioridade
+  \item em multimídia, prazos finais para distribuição dos dados altera no escalonamento
+  \item exemplo típico: fluxo multimídia é recuperado do disco, enviado pela rede para
+uma estação destino, sincronizado com um fluxo proveniente de outra origem e exibido.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ger. de recursos - escalonamento}
+Escalonamento imparcial (fairness)
+\begin{itemize}
+  \item fluxos concorrentes pelo mesmo recurso: imparcialidade para evitar que
+fluxos mal comportados ocupem larguda de banda em demasia
+  \item estratégia simples: escalonamento em rodízio em fluxos da mesma classe
+  \item trabalhos que realizam esse escalonamento pacote por pacote, e bit por 
+bit\footnote{pacotes não podem ser enviados bit a bit, mas data uma taxa de quadros é possível
+calcular, para cada pacote, quando ele será enviado completamente}.
+  \item é possível estabelecer que, para certos fluxos, um número maior de bits seja transmitido
+por ciclo: enfileiramento imparcial ponderado.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ger. de recursos - escalonamento}
+Escalonamento em tempo real
+\begin{itemize}
+  \item escalonamento EDF (Earliest-deadline-first): método tradicional que se adapta
+bem aos fluxos multimídia contínuos regulares
+  \item prazos finais são associados aos itens de trabalho; itens com prazos finais mais
+adiantados são processos primeiro.
+  \item escalonamento RM (Rate-monotonic): baseado nos elementos que existem por um tempo maior
+  \item quanto maior a velocidade dos itens de um fluxo, maior é a prioridade do fluxo
+\end{itemize}
+\end{frame}
+
+\section{Adaptação de fluxo}
+
+\begin{frame}
+ \frametitle{Adaptação de FLuxo}
+ \begin{itemize}
+   \item quando uma QoS não pode ser garantida, a aplicação precisa de adaptar
+   \item forma mais simples: eliminar informações
+   \item facilmente realizável em áudio, onde as amostras são independentes, mas notado
+imediatamente pelo ouvinte
+   \item exclusões de quadros em vídeos Motion JPEG são toleráveis: os quadros têm posições livres
+   \item MPEG: interpretação de um quadro depende dos valores de quadros adjacentes: omissão
+pode amplificar erros
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Motion JPEG x 
+MPEG\footnote{\url{http://www.axis.com/products/video/about_networkvideo/compression.htm}}}
+  \begin{figure}[hbtp]
+  \begin{center}
+   \includegraphics[scale=0.35]{mpeg_x_motionjpeg.png}
+  \end{center}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Adaptação de FLuxo}
+ \begin{itemize}
+   \item largura de banda insuficiente e dados não eliminados: atraso de fluxo aumentará
+   \item aceitável em aplicações não-interativas, apesar de possibilitar estouro de buffer
+   \item aplicações interativas: se um fluxo estiver atrasado em seu tempo de término designado,
+sua taxa de término deverá ser aumentada até que ele esteja novamente no tempo certo: os quadros
+ devem aparecer na saída assim que estiverem disponíveis. (COMPREENDER OU RETIRAR ESSA FRASE)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adaptação de FLuxo: mudanças na escala}
+ \begin{itemize}
+   \item adaptação realizada apenas no destino em um fluxo: sobrecarga persistirá
+   \item adaptar um fluxo para a larguda de banda disponível: mudança de escala
+   \item operação fundamental: fazer uma nova amostragem do sinal
+   \item exemplos: áudio, eliminação de um canal estéreo; mudança de taxa de amostragem
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adaptação de FLuxo: mudanças na escala}
+ \begin{itemize}
+   \item vídeo: 
+     \begin{itemize}
+       \item temporal: diminui o número de quadros transmitidos dentro de um intervalo;
+apropriado para quadros individuais independentes
+        \item espacial: reduz o número de pixels em cada imagem (diferentes resoluções); 
+        \item frequência: modifica o algoritmo de compactação aplicado às imagens
+        \item amplitude: reduz intensidades de cores de cada pixel da imagem;
+        \item espaço de cores: reduz o número de entradas no espaço de cores; cores para
+escala de tons;
+     \end{itemize}
+     \item Podem ser usadas combinações destas mudanças
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adaptação de FLuxo: mudanças na escala}
+ \begin{itemize}
+   \item um monitor controla tempos de chegada de mensagens
+   \item mensagens atrasadas indicam gargalos
+   \item uma mensagem para \emph{diminuir escala} é enviada, e a larguda do fluxo é
+reduzida; após algum período de tempo, a origem aumenta novamente a escala
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adaptação de FLuxo: filtragem}
+ \begin{itemize}
+   \item mudança de escala modifica o fluxo na origem; nem todos os destinos teriam 
+problemas para manipular o fluxo original
+   \item a filtragem fornece a melhor QoS possível para cada destino
+  \end{itemize}
+  ESCANEAR figura 17.9
+%  \begin{figure}[hbtp]
+%  \begin{center}
+%   \includegraphics[scale=0.28]{filtragem.png}
+%  \end{center}
+% \end{figure}
+\end{frame}
+
+\section{Estudo de caso: servidor de arquivos de vídeo Tiger}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: objetivos do projeto}
+ \begin{itemize}
+   \item vídeo sob demanda para grande número de usuários; exemplo: fornecimento de filmes
+para clientes pagantes; execução de operações de pausa, retrocesso e avanço rápido; poucos filmes
+populares, resultado em várias reproduções concorrentes deslocadas no tempo
+   \item QoS: fornecimento com uma velocidade constante, flutuação (jitter) máxima (pequena)
+definida pela quantidade de buffers disponíveis nos clientes e taxa de perda mínima
+   \item sistema com mudança de escala e distribuído: arquitetura extensível 
+(+ computadores) para suportar até 10.000 clientes
+   \item hardware de baixo custo: pc's comerciais com unidades de disco padrão
+   \item tolerante a falhas: funcionamento sem degradação notável após falha de computadores 
+servidores ou discos
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: arquitetura}
+todos os componentes são produtos de prateleira
+%  \begin{figure}[hbtp]
+%  \begin{center}
+%   \includegraphics[scale=0.28]{figura17.10.png}
+%  \end{center}
+% \end{figure}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: armazenamento}
+ \begin{itemize}
+   \item filmes são armazenados de forma segmentada (strips) entre todos os discos
+   \item a perda de um disco resulta em uma lacuna em cada filme
+   \item tratamento: espelhamento de armazenamento e outros descritos a seguir
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: segmentação (stripping)}
+ \begin{itemize}
+   \item filme é dividido em blocos, em torno de 1s, ocupando 0,5 Mb;
+   \item blocos que foram um filme (7000, para 2hs) é armazenado em sequência de discos;
+um filme pode começar em qualquer disco
+   \item ao atingir o disco mais alto, o filme \emph{circula} para o disco 0 e o
+processo continua
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: espelhamento}
+ \begin{itemize}
+   \item NÃO ENTENDI, RELER
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
+ \begin{itemize}
+   \item organização por repartições (slots): cada repartição representa o trabalho a ser
+feito para reproduzir um bloco de um filme (lê-lo do disco relevante e 
+transferí-lo para a rede ATM)
+   \item existe uma repartição para cada cliente em potencial receber um 
+filme (visualizador); cada
+repartição ocupada representa um visualizador recebendo um fluxo de dados de vídeo em tempo
+real
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
+O estado do visualizador é representado no escalonamento pelo(a):
+ \begin{itemize}
+       \item endereço do computador cliente
+       \item ID do arquivo sendo reproduzido
+       \item posição do visualizador no arquivo (próximo bloco a ser distribuído no fluxo)
+       \item número de sequência no visualizador (a partir do qual calcula-se tempo de
+distribuição para o próximo bloco)
+       \item algumas informações de contabilidade
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
+ \begin{itemize}
+       \item LER O RESTO
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
+ \begin{itemize}
+       \item
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: tolerância a falhas}
+ \begin{itemize}
+       \item 
+ \end{itemize}
 \end{frame}
 
 %\begin{frame}
@@ -384,7 +742,7 @@ espaço exigida no buffer para evitar perda.
 % \begin{itemize}
 %   \item 
 %  \end{itemize}
-% \end{frame}
+%\end{frame}
 
 
 
