@@ -13,8 +13,8 @@
 \title{Sistemas Multimídia Distribuidos}
 \author{}                
 \institute{}     
-%\date{\today}         
-\date{11/08/2011}
+\date{\today}         
+%\date{11/08/2011}
 
 \begin{document}
 
@@ -673,25 +673,120 @@ todos os componentes são produtos de prateleira
 \end{frame}
 
 \begin{frame}
- \frametitle{Servidor Tiger: segmentação}
+ \frametitle{Servidor Tiger: segmentação (stripping)}
  \begin{itemize}
-   \item 
+   \item filme é dividido em blocos, em torno de 1s, ocupando 0,5 Mb;
+   \item blocos que formam um filme (7000, para 2hs) são armazenados em sequência de discos;
+um filme pode começar em qualquer disco
+   \item ao atingir o disco mais alto, o filme \emph{circula} para o disco 0 e o
+processo continua
   \end{itemize}
 \end{frame}
 
 \begin{frame}
- \frametitle{Servidor Tiger}
+ \frametitle{Servidor Tiger: espelhamento}
  \begin{itemize}
-   \item 
+   \item um bloco é divido em partes, chamadas secundários
+   \item quando um cub falhar, a carga cai sobre outros cubs, não sobre um apenas
+   \item número de secundários por bloco: fator de desagrupamento d (tipicamente entre 4 e 8)
+   \item secundários de um bloco i são armazenados nos cubs i+1 a i+d
+   \item desde que existam mais do que d cubs, nenhum dos discos é ligado
+no mesmo cubs do disco i
   \end{itemize}
 \end{frame}
 
 \begin{frame}
- \frametitle{Servidor Tiger}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
  \begin{itemize}
-   \item 
+   \item organização por repartições (slots): cada repartição representa o trabalho a ser
+feito para reproduzir um bloco de um filme (lê-lo do disco relevante e 
+transferí-lo para a rede ATM)
+   \item existe uma repartição para cada cliente em potencial receber um 
+filme (visualizador); cada
+repartição ocupada representa um visualizador recebendo um fluxo de dados de vídeo em tempo
+real
   \end{itemize}
 \end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
+O estado do visualizador é representado no escalonamento pelo(a):
+ \begin{itemize}
+       \item endereço do computador cliente
+       \item ID do arquivo sendo reproduzido
+       \item posição do visualizador no arquivo (próximo bloco a ser distribuído no fluxo)
+       \item número de sequência no visualizador (a partir do qual calcula-se tempo de
+distribuição para o próximo bloco)
+       \item algumas informações de contabilidade
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
+ \begin{itemize}
+       \item 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: escalonamento distribuído}
+ \begin{itemize}
+       \item
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: tolerância a falhas}
+ \begin{itemize}
+  \item recuperação de dados das cópias secundárias espelhadas, quando um bloco primário
+torna-se indisponível
+%    \item 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: suporte de rede}
+ \begin{itemize}
+  \item blocos de cada filme são passados para a rede ATM pelo cub que o contêm
+  \item rede ATM possui QoS para entregar  o bloco ao cliente
+  \item cliente apenas verifica o número de sequência do bloco recebido
+  \item secundários sendo servidos: os d cubs distribuem na rede (em sequência) e 
+o cliente reúne-os e monta-os em seu buffer
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Outras funções}
+  \begin{itemize}
+   \item implementação inicial: escalonamento e distribuição eram manipulados pelo
+controlador
+   \item problema: único ponto de falha e gargalo de desempenho em potencial
+   \item solução: escalonamento refeito, onde os cubs executam um algoritmo distribuído, 
+em tempo não programado, em resposta aos comandos do controlador
+   \item alucinação coerente: termo usado para a implementação distribuída de um objeto
+compartilhado
+   \item nenhum
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: desempenho e escalabilidade}
+ \begin{itemize}
+  \item 1994: 5 PC's pentim 133MHz, 48Mb RAM, 3 discos SCSI de 2Gb, 1 controlador ATM,
+Windows NT
+  \item 68 clientes de filmes, sem falhas, distribuição perfeita
+  \item 1 cub danificado (3 discos), perda de dados de 0,02\%
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: }
+ \begin{itemize}
+  \item 
+ \end{itemize}
+\end{frame}
+
 
 %\begin{frame}
 % \frametitle{}

@@ -10,11 +10,13 @@
 \setbeamertemplate{footline}[frame number] 
 \usepackage[utf8]{inputenc}
 
+\beamertemplateballitem %itens mais bonitos, no itemize
+
 \title{Sistemas Multimídia Distribuidos}
 \author{}                
-\institute{}     
-%\date{\today}         
-\date{11/08/2011}
+\institute{Baseado no cap. 17 do livro do Coulouris\cite{Coulouris:2007}}     
+\date{\today}         
+%\date{11/08/2011}
 
 \begin{document}
 
@@ -31,37 +33,18 @@
 %  \tableofcontents
 %\end{frame}
 
-\begin{frame}
- \frametitle{Abstract}
- \begin{itemize}
-   \item 
- \end{itemize}
-\end{frame}
+\section{Introdução}
 
-\section{Introduçãol}
-
-\begin{frame}
+\begin{frame}[allowframebreaks]
  \frametitle{Panorama}
  \begin{itemize}
    \item Fluxos contínuos de dados em tempo real
    \item Grandes quantidades de áudio, vídeo e outros elementos, respeitando o critério temporal
    \item Elementos de dados distribuídos com atrasos geralmente são eliminados
- \end{itemize}
-\end{frame}
-
-\begin{frame}
- \frametitle{Panorama II}
- \begin{itemize}
-  \item Especificação: em termos de taxa de passagem de dados (largura de banda),
+   \item Especificação: em termos de taxa de passagem de dados (largura de banda),
 atraso da distribuição de cada elemento (latência) e taxa de eliminação/perca de pacotes
   \item Latência: especialmente importante em aplicativos interativos
   \item Perca de pacotes é aceitável quando é possível re-sincronizar após o ponto de perda
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Panorama III}
-\begin{itemize}
   \item Alocação de recursos é referida como qualidade de serviços: alocação de processamento,
 largura de banda da rede e memória (para buffer)
 \end{itemize}
@@ -69,7 +52,7 @@ largura de banda da rede e memória (para buffer)
 
 %\subsection{Introdução}
 
-\begin{frame}
+\begin{frame}[allowframebreaks]
   \frametitle{Introdução}
 \begin{itemize}
   \item Fluxos de dados contínuos (streams) baseados no tempo: telefonia pela Internet, 
@@ -79,12 +62,6 @@ vídeoconferência, etc
 resultados de acordo com um escalonamento determinado externamente
   \item O grau de sucesso desse fornecimento é o QoS (Quality of Service), usufruída
 pelo aplicativo
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Introdução}
-\begin{itemize}
   \item Diferenças entre os sistemas de tempo real de aviação, processo de fabricação, etc: 
   \item estes possuem volumes de dados pequenos e prazos finais rígidos; o não cumprimento pode ter
 consequências desastrosas, por isso superestima-se recursos e trabalha-se com atendimento 
@@ -96,13 +73,6 @@ no pior caso
 simulação pode requerer mais processamento
   \item operação de sistemas multimídia em conjunto com outras aplicações: edição de textos, 
 conversa de voz separada, mensagens instantâneas, em meio a uma vídeo-conferência
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Introdução}
-  Serviços providos por um sistema distribuído típico:
-  \begin{itemize}
     \item vídeoconferência em desktop
     \item acesso a sequência de vídeo
     \item transmissão de TV e rádio digital
@@ -113,9 +83,12 @@ processador e capacidade de memória
 
 \begin{frame}
   \frametitle{Introdução}
-\begin{itemize}
-  \item FIGURAAAAAAAAAAA 17.1
-\end{itemize}
+   \begin{figure}[hbtp]
+  \caption{Sistema Multimídia Distribuído}
+  \begin{center}
+   \includegraphics[scale=0.28]{sistema_multimidia_distribuido.png}
+  \end{center}
+ \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -182,9 +155,12 @@ um sistema tem recursos insuficientes para executar as aplicações relevantes}
 
 \begin{frame}
   \frametitle{Introdução}
-\begin{itemize}
-  \item FIGURA DA JANELA DE ESCASSEZ
-\end{itemize}
+  \begin{figure}[hbtp]
+   \caption{Janela de Escassez}
+   \begin{center}
+    \includegraphics[scale=0.33]{janela_escassez.png}
+   \end{center}
+  \end{figure}
 \end{frame}
 
 \section{Características dos dados multimídia}
@@ -206,9 +182,12 @@ a \emph{semântica} ou conteúdo do fluxo
 
 \begin{frame}
   \frametitle{Características}
-\begin{itemize}
-  \item FIGURA QUADRO TAXAS E AMOSTRAS DE DADOS
-\end{itemize}
+  \begin{figure}[hbtp]
+   \caption{Taxas e Amostras}
+   \begin{center}
+    \includegraphics[scale=0.33]{taxas_e_amostras.png}
+   \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -254,16 +233,31 @@ aplicações multimídia: distribuição atrasada não tem valor.
 \end{frame}
 
 \begin{frame}
-FIGURA 17.4: arquitetura abstrata com fluxos de mídia de dados gerados continuamente
+  \begin{figure}[hbtp]
+   \caption{arquitetura abstrata com fluxos de mídia de dados gerados continuamente}
+   \begin{center}
+    \includegraphics[scale=0.33]{arquitetura_abstrata.png}
+   \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
-FIGURA 17.5: requisitos de recurso para a fig 17.4
+
+  \begin{figure}[hbtp]
+   \caption{requisitos de recurso para a arquitetura abstrata}
+   \begin{center}
+    \includegraphics[scale=0.33]{requisitos_recursos.png}
+   \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
-Principais responsabilidades do gerenciador de qualidade do serviço:
-FIGURA 17.6: a tarefa do gerenciador de qualidade do serviço
+  \begin{figure}[hbtp]
+   \caption{Tarefas do negociador de QoS}
+   \begin{center}
+    \includegraphics[scale=0.33]{negociador_qos.png}
+   \end{center}
+  \end{figure}
 \end{frame}
 
 
@@ -281,12 +275,23 @@ para aplicações críticas, bem menos!
 
 \begin{frame}
  
-FIGURA do grafico do JITTER
-jitter.jpg
-referência: http://www.ipg.pt/user/~sduarte/rc/Trabalhos2005/QoS/necessidadesQoS.htm
+  \begin{figure}[hbtp]
+   \caption{Jitter\cite{site2:2011}}
+   \begin{center}
+    \includegraphics[scale=1.2]{jitter.jpg}
+   \end{center}
+  \end{figure}
 
 \end{frame}
 
+\begin{frame}
+   \begin{figure}[hbtp]
+  \caption{Jitter\cite{Mingyang:2002}}
+  \begin{center}
+   \includegraphics[scale=0.48]{jitter2.png}
+  \end{center}
+ \end{figure}
+\end{frame}
 
 \begin{frame}
   \frametitle{QoS: Negociação}
@@ -334,6 +339,17 @@ elementos de mídia que podem chegar cedo, isto é, antes do que devam chegar, d
 com a taxa normal. ESTUDAR MAIS SOBRE RAJADA!!
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+  \begin{figure}[hbtp]
+  \caption{Distribuição em camadas\cite{Moraes:2009}}
+  \begin{center}
+   \includegraphics[scale=0.35]{distribuicao_camadas.png}
+  \end{center}
+  \end{figure}
+\end{frame}
+
+
 
 \begin{frame}
   \frametitle{QoS}
@@ -388,10 +404,12 @@ consumo.
 \end{frame}
 
 \begin{frame}
-  \frametitle{QoS}
-\begin{itemize}
-  \item FIGURA DO BALDE FURADO 17.7
-\end{itemize}
+  \begin{figure}[hbtp]
+   \caption{QoS}
+   \begin{center}
+    \includegraphics[scale=0.33]{balde_furado.png}
+   \end{center}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -412,10 +430,14 @@ consecutivas
 
 \begin{frame}
   \frametitle{QoS}
-\begin{itemize}
-  \item FIGURA 17.8 agrupamento dos parâmetros, especificao de 
-fluxo RFC\footnote{o que eh rfc} REC 1363
-\end{itemize}
+  \begin{figure}[hbtp]
+   \caption{Agrupamento dos parâmetros, especificao de 
+fluxo RFC\footnote{Request for Comments} REC 1363}
+   \begin{center}
+    \includegraphics[scale=0.26]{rfc1363.png}
+   \end{center}
+  \end{figure}
+
 \end{frame}
 
 \begin{frame}
@@ -554,7 +576,9 @@ adiantados são processos primeiro.
    \item quando uma QoS não pode ser garantida, a aplicação precisa de adaptar
    \item forma mais simples: eliminar informações
    \item facilmente realizável em áudio, onde as amostras são independentes, mas notado
-imediatamente pelo ouvinte
+imediatamente pelo ouvinte\footnote{Demonstra-se que as pessoas são menos tolerantes a erros
+de áudio do que erros de vídeo; assim, em competições pode ser atribuído ao áudio
+maior prioridade.\cite{Liao:1997}}
    \item exclusões de quadros em vídeos Motion JPEG são toleráveis: os quadros têm posições livres
    \item MPEG: interpretação de um quadro depende dos valores de quadros adjacentes: omissão
 pode amplificar erros
@@ -627,13 +651,25 @@ reduzida; após algum período de tempo, a origem aumenta novamente a escala
 problemas para manipular o fluxo original
    \item a filtragem fornece a melhor QoS possível para cada destino
   \end{itemize}
-  ESCANEAR figura 17.9
-%  \begin{figure}[hbtp]
-%  \begin{center}
-%   \includegraphics[scale=0.28]{filtragem.png}
-%  \end{center}
-% \end{figure}
+
+  \begin{figure}[hbtp]
+%    \caption{Filtragem}
+   \begin{center}
+    \includegraphics[scale=0.26]{filtering.png}
+   \end{center}
+  \end{figure}
+
 \end{frame}
+
+\begin{frame}
+  \frametitle{Filtragem II \cite{Mingyang:2002}}
+  \begin{figure}[hbtp]
+  \begin{center}
+   \includegraphics[scale=0.44]{filter_multicast.png}
+  \end{center}
+ \end{figure}
+\end{frame}
+
 
 \section{Estudo de caso: servidor de arquivos de vídeo Tiger}
 
@@ -655,12 +691,15 @@ servidores ou discos
 
 \begin{frame}
  \frametitle{Servidor Tiger: arquitetura}
-todos os componentes são produtos de prateleira
-%  \begin{figure}[hbtp]
-%  \begin{center}
-%   \includegraphics[scale=0.28]{figura17.10.png}
-%  \end{center}
-% \end{figure}
+ todos os componentes são produtos de prateleira;
+o controlador é: ponto de contato com os clientes; servidor de hora local; outras
+pequenas tarefas\cite{Bolosky:1997}
+  \begin{figure}[hbtp]
+ % \caption{Arquitetura Tiger\cite{Bolosky:1997}}
+  \begin{center}
+   \includegraphics[scale=0.28]{tiger_architecture.png}
+  \end{center}
+ \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -676,7 +715,7 @@ todos os componentes são produtos de prateleira
  \frametitle{Servidor Tiger: segmentação (stripping)}
  \begin{itemize}
    \item filme é dividido em blocos, em torno de 1s, ocupando 0,5 Mb;
-   \item blocos que foram um filme (7000, para 2hs) é armazenado em sequência de discos;
+   \item blocos que formam um filme (7000, para 2hs) são armazenados em sequência de discos;
 um filme pode começar em qualquer disco
    \item ao atingir o disco mais alto, o filme \emph{circula} para o disco 0 e o
 processo continua
@@ -686,7 +725,12 @@ processo continua
 \begin{frame}
  \frametitle{Servidor Tiger: espelhamento}
  \begin{itemize}
-   \item NÃO ENTENDI, RELER
+   \item um bloco é divido em partes, chamadas secundários
+   \item quando um cub falhar, a carga cai sobre outros cubs, não sobre um apenas
+   \item número de secundários por bloco: fator de desagrupamento d (tipicamente entre 4 e 8)
+   \item secundários de um bloco i são armazenados nos cubs i+1 a i+d
+   \item desde que existam mais do que d cubs, nenhum dos discos é ligado
+no mesmo cubs do disco i
   \end{itemize}
 \end{frame}
 
@@ -719,7 +763,7 @@ distribuição para o próximo bloco)
 \begin{frame}
  \frametitle{Servidor Tiger: escalonamento distribuído}
  \begin{itemize}
-       \item LER O RESTO
+       \item 
  \end{itemize}
 \end{frame}
 
@@ -733,8 +777,75 @@ distribuição para o próximo bloco)
 \begin{frame}
  \frametitle{Servidor Tiger: tolerância a falhas}
  \begin{itemize}
-       \item 
+  \item recuperação de dados das cópias secundárias espelhadas, quando um bloco primário
+torna-se indisponível
+%    \item 
  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: suporte de rede}
+ \begin{itemize}
+  \item blocos de cada filme são passados para a rede ATM pelo cub que o contêm
+  \item rede ATM possui QoS para entregar  o bloco ao cliente
+  \item cliente apenas verifica o número de sequência do bloco recebido
+  \item secundários sendo servidos: os d cubs distribuem na rede (em sequência) e 
+o cliente reúne-os e monta-os em seu buffer
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Outras funções}
+  \begin{itemize}
+   \item implementação inicial: escalonamento e distribuição eram manipulados pelo
+controlador
+   \item problema: único ponto de falha e gargalo de desempenho em potencial
+   \item solução: escalonamento refeito, onde os cubs executam um algoritmo distribuído, 
+em tempo não programado, em resposta aos comandos do controlador
+   \item alucinação coerente: termo usado para a implementação distribuída de um objeto
+compartilhado
+   \item nenhum cub tem uma cópia de todo o agendamento, mas age como se houvesse um
+estado global coerente
+   \item 
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: desempenho e escalabilidade}
+ \begin{itemize}
+  \item 1994: 5 PC's pentim 133MHz, 48Mb RAM, 3 discos SCSI de 2Gb, 1 controlador ATM,
+Windows NT
+  \item 68 clientes de filmes, sem falhas, distribuição perfeita
+  \item 1 cub danificado (3 discos), perda de dados de 0,02\%
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Servidor Tiger: }
+ \begin{itemize}
+  \item 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adicional: aplicações\cite{Maxlow:2003}}
+  \begin{itemize}
+   \item operações cirúrgicas remotas
+   \item controle remoto exploratório de robôs
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Adicional: definições\cite{Maxlow:2003}}
+  \begin{itemize}
+   \item A estrutura da Internet não é suficiente para fornecer a qualidade, confiabilidade
+e interatividade necessária para conteúdo multimídia
+   \item Os sistemas multimídia distribuídos adicionam arquiteturas e protocolos
+ao topo da Internet (LAN's) para garantir níveis de qualidade
+   \item Clientes adicionais não precisam degradar o sistema: eles podem ser recusados se
+os recursos são escassos
+  \end{itemize}
 \end{frame}
 
 %\begin{frame}
@@ -763,7 +874,7 @@ distribuição para o próximo bloco)
 
 \section{Referências}
 
-%\bibliographystyle{plain}
+\bibliographystyle{plain}
 \bibliography{refs}
 
 \end{document}
