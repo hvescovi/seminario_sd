@@ -93,14 +93,14 @@ processador e capacidade de memória
  \end{figure}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Introdução}
-\begin{itemize}
-  \item Sistema distribuído aberto: aplicativos multimídia podem ser iniciados sem organização
-anterior\footnote{O QUE ISSO QUER DIZER EXATAMENTE??} e coexistir na mesma rede
-  \item É necessário haver qualidade do serviço independentemente da qualidade total do sistema
-\end{itemize}
-\end{frame}
+%\begin{frame}
+%  \frametitle{Introdução}
+%\begin{itemize}
+%  \item Sistema distribuído aberto: aplicativos multimídia podem ser iniciados sem organização
+%anterior\footnote{O QUE ISSO QUER DIZER EXATAMENTE??} e coexistir na mesma rede
+%  \item É necessário haver qualidade do serviço independentemente da qualidade total do sistema
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}
   \frametitle{Introdução}
@@ -117,6 +117,16 @@ alto uso de buffers no destino
 \end{frame}
 
 \begin{frame}
+  \begin{figure}[hbtp]
+   \caption{Buffers}
+   \begin{center}
+    \includegraphics[scale=1.3]{buffer.jpg}
+   \end{center}
+  \end{figure}
+\end{frame}
+
+
+\begin{frame}
   \frametitle{Introdução}
 Aplicativos muito interativos: problemas...
 \begin{itemize}
@@ -130,7 +140,8 @@ Aplicativos muito interativos: problemas...
   \frametitle{Introdução}
 Exigências das aplicações super-interativas
 \begin{itemize}
-  \item comunicação com baixa latência: RTT de 100 a 300 ms
+  \item comunicação com baixa latência:
+ tela+controle+vídeo+rede+captação < RTT de 100 a 300 ms
   \item estado distribuído síncrono: se um usuário interrompe um vídeo, todos devem 
 ver a interrupção no mesmo quadro
   \item sincronismo de mídia: o exemplo da execução musical distribuída; 
@@ -139,7 +150,8 @@ sincronismo \emph{labial}\footnote{exemplo: sessão de karaokê distribuída}
   \item sincronização externa: aplicações cooperativas diversas devem parecer 
 sincronizadas\footnote{Isso é perceptível quando \emph{filmamos a televisão}}
 com os fluxos multimídia baseados no tempo (exemplo: animações de computador, dados CAD, 
-quadros-negros eletrônicos).
+quadros-negros eletrônicos).   
+  \item 
 \end{itemize}
 \end{frame}
 
@@ -208,14 +220,25 @@ maior flexibilidade
 \end{frame}
 
 \begin{frame}
+  \begin{figure}[hbtp]
+   \caption{Pacotes multimídia}
+   \begin{center}
+    \includegraphics[scale=0.31]{multimedia_packages.png}
+   \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
   \frametitle{Características}
 \begin{itemize}
-  \item método MPEG é assimétrico (???), com algoritmo de compactação complexo e descompactação
+  \item método MPEG é 
+assimétrico\footnote{o codificador é diferente do decodificador}, com algoritmo de compactação complexo e descompactação
 simples
   \item isso ajuda em conferências no desktop: compactação feita por codec em hardware, 
-descompactação via software, ????permitindo que o número de participantes na
-vídeoconferência varie sem considerar o número de 
-codecs no computador de cada usuário???? NÃO ENTENDI ESSA FRASE
+descompactação via software
+% ????permitindo que o número de participantes na
+%vídeoconferência varie sem considerar o número de 
+%codecs no computador de cada usuário???? NÃO ENTENDI ESSA FRASE
 \end{itemize}
 \end{frame}
 
@@ -229,7 +252,7 @@ de processador, barramento, capacidade de buffer)
   \item redes são projetadas pra que mensagens de diferentes origens sejam intercaladas,
 permitindo a existência de muitos canais de comunicação virtuais nos mesmos canais físicos
   \item Ethernet: gerencia um meio de transmissão compartilhado na base do melhor esforço
-(QUE BUDEGA É ESSA! apenas não-confiável?)
+(não-confiável)
   \item enfim: rodízio, tempos aleatórios, etc, podem não satisfazer as necessidades das
 aplicações multimídia: distribuição atrasada não tem valor.
 \end{itemize}
@@ -278,22 +301,47 @@ para aplicações críticas, bem menos!
 
 
 
-\begin{frame}
- 
-  \begin{figure}[hbtp]
-   \caption{Jitter\cite{site2:2011}}
-   \begin{center}
-    \includegraphics[scale=1.2]{jitter.jpg}
-   \end{center}
-  \end{figure}
+%\begin{frame}
+%  \begin{figure}[hbtp]
+%   \caption{Jitter\cite{site2:2011}}
+ %  \begin{center}
+ %   \includegraphics[scale=1.2]{jitter.jpg}
+   %\end{center}
+  %\end{figure}
+%%\end{frame}
 
-\end{frame}
+%\begin{frame}
+   %%\begin{figure}[hbtp]
+  %\caption{Jitter}
+  %%\begin{center}
+%   \includegraphics[scale=1.1]{jitter2.jpg}
+  %\end{center}
+ %%\end{figure}
+%\end{frame}
 
 \begin{frame}
    \begin{figure}[hbtp]
   \caption{Jitter\cite{Mingyang:2002}}
   \begin{center}
    \includegraphics[scale=0.48]{jitter2.png}
+  \end{center}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+   \begin{figure}[hbtp]
+  \caption{}
+  \begin{center}
+   \includegraphics[scale=0.28]{tcp_outstanding_data.png}
+  \end{center}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
+   \begin{figure}[hbtp]
+  \caption{}
+  \begin{center}
+   \includegraphics[scale=0.28]{throughput.png}
   \end{center}
  \end{figure}
 \end{frame}
@@ -313,6 +361,27 @@ de transmissão garante uma taxa de perda menor que 1 em 10e6.
 \end{frame}
 
 \begin{frame}
+  \frametitle{Exemplo de parâmetros: h.264}
+ \begin{itemize}
+  \item codec/decoder de vídeo
+  \item 1080p @ 3.7Mpbs, 720p @ 2.2 Mpbs, 480p @ 1.25 Mpbs :  
+  \item perda de pacote aceitável 
+até 25\%\footnote{url{http://x264dev.multimedia.cx/archives/249}}
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exemplo de parâmetros: CELT}
+ \begin{itemize}
+  \item codec/decoder de áudio
+  \item 200 ms aceitavel, 20ms p/ música
+  \item atraso de audio < 20ms = 8 metros p/ som no ar
+  \item latência: 5ms
+  \item bitrate: 32kpbs @ 48kHz stereo
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{QoS: Negociação}
 Os parâmetros são interdependentes. Exemplos:
 \begin{itemize}
@@ -322,7 +391,7 @@ a taxa de perda
   \item quanto menor a largura de banda, em relação à carga, 
 mais mensagens serão armazenadas e mais buffers serão necessários; quanto maior o buffer,
 mais provável que mensagens esperem outras que estão na frente para serem atendidas, e
-assim, maior será o atraso. ESTUDAR ESSA PARTE!!!
+assim, maior será o atraso. 
 \end{itemize}
 \end{frame}
 
@@ -357,9 +426,10 @@ chamada de 'modo rajada'.\cite{site1:2011}
 \begin{frame}
   \frametitle{QoS}
 \begin{itemize}
-  \item Anderson 
+  \item %Anderson 
 %\cite{Anderson:1993} 
-BAIXAR: Meta-scheduling for distributed continuous media, em ACM
+Método LBAP (linear-bounded arrival processes): 
+%BAIXAR: Meta-scheduling for distributed continuous media, em ACM
 define o número máximo de mensagens em um fluxo durante qualquer intervalo t como Rt+B,
 onde R é a taxa e B é o tamanho máximo da rajada.
   \item reflete bem dados multimídia: dados multimídia lidos do disco são geralmente 
@@ -384,7 +454,7 @@ mais do que 150ms; reprodução de vídeo, resposta aos comandos
 máxima da ordem de 500ms
   \item jitter\footnote{variação no período entre a
  distribuição de dois quadros subjacentes}: o
-uso de buffers resolve, mas há um limite. VER ISSO MELHOR!!!!!!!!!!
+uso de buffers resolve, mas há um limite. 
 \end{itemize}
 \end{frame}
 
@@ -395,7 +465,7 @@ Taxa de perda
   \item é o parâmetro mais difícil de especificar; resultam do cálculo de probabilidade 
 estouro em buffers e mensagens atrasadas, baseados em pior caso ou distribuição padrão.
   \item taxas de perda dadas para período de tempo infinito são inúteis: qualquer perda
-em um tempo curto pode ultrapassar a taxa de longo prazo. (??????)
+em um tempo curto pode ultrapassar a taxa de longo prazo.
 \end{itemize}
 \end{frame}
 
@@ -403,9 +473,9 @@ em um tempo curto pode ultrapassar a taxa de longo prazo. (??????)
   \frametitle{QoS}
 Moldagem de tráfego
 \begin{itemize}
-  \item termo que descreve o uso de buffers de saída para suavizar o fluxo de dados.
-  \item modelo LBAP\footnote{ANDERSON 1993 VER REFERÊNCIA} de variações de largura de banda 
-exige regular a taxa de rajada dos fluxos multimídia.
+  \item Termo que descreve o uso de buffers de saída para suavizar o fluxo de dados.
+%  \item modelo LBAP\footnote{ANDERSON 1993 VER REFERÊNCIA} de variações de largura de banda 
+%exige regular a taxa de rajada dos fluxos multimídia.
   \item Fluxos podem ser regulados pela inserção de um buffer na origem e um método de 
 consumo.
 \end{itemize}
@@ -419,6 +489,33 @@ consumo.
    \end{center}
   \end{figure}
 \end{frame}
+
+\begin{frame}
+  \begin{figure}[hbtp]
+   \caption{QoS}
+   \begin{center}
+    \includegraphics[scale=0.23]{leakybucket.jpg}
+   \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \begin{figure}[hbtp]
+   \caption{QoS}
+   \begin{center}
+    \includegraphics[scale=0.2]{leakybucket2.png}
+   \end{center}
+  \end{figure}
+\end{frame}
+
+%tocketbucket3 e 4.jpg
+%http://www.cisco.com/en/US/docs/ios_xr_sw/iosxr_r3.2/qos/configuration/guide/qc32cong.html
+
+%jitter2.jpg, buffer.jpg, tokenbucket3.gif e leakybucket.gif
+%http://www.cs.ru.nl/~ths/a3/html/h5/h5.html
+
+%leakybucket.jpg, leakybucket2.jpg
+%http://en.wikipedia.org/wiki/Leaky_bucket
 
 \begin{frame}
   \frametitle{QoS - Especificações de fluxo}
@@ -440,9 +537,9 @@ consecutivas
   \frametitle{QoS}
   \begin{figure}[hbtp]
    \caption{Agrupamento dos parâmetros, especificao de 
-fluxo RFC\footnote{Request for Comments} REC 1363}
+fluxo RFC REC 1363}
    \begin{center}
-    \includegraphics[scale=0.26]{rfc1363.png}
+    \includegraphics[scale=0.24]{rfc1363.png}
    \end{center}
   \end{figure}
 
@@ -451,7 +548,7 @@ fluxo RFC\footnote{Request for Comments} REC 1363}
 \begin{frame}
   \frametitle{QoS - procedimentos de negociação}
 \begin{itemize}
-  \item os gerenciados de qualidade de serviço estão nos nós
+  \item os gerenciadores de qualidade de serviço estão nos nós
   \item estratégia simples de negociação: envio da especificação de fluxo para o gerenciador
 da QoS total; verificação no banco de dados local; encaminhamento para o próximo nó, até
  o destino final; no retorno da mensagem obtem-se a informação sobre a 
@@ -486,21 +583,21 @@ ser por eles atendidos
   \item baseado em conhecimento geral da capacidade global do sistema e carga gerada
 por cada aplicação
   \item recursos com alocador único: simples para controlar a admissão
-  \item recursos com pontos de acesso distribuídos: controle de admissão centralizada
-ou algoritmo de controle de admissão distribuído, para tratar concorrências e conflitos.
+  \item recursos com pontos de acesso distribuídos: algoritmo 
+de controle de admissão distribuído, para tratar concorrências e conflitos.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{QoS - reserva de largura de banda}
 \begin{itemize}
-  \item para fornecer uma QoS garantida: reserva para sua larguda de banda máxima
+  \item para fornecer uma QoS garantida: reserva para sua largura de banda máxima
   \item aplicações que se tornam inúteis se houver quedas de qualidade
   \item exemplos: raio X (sintoma aparecer bem no momento de descarte de quadros); 
 armazenamento de vídeos (falhas serão visíveis sempre quando reproduzir o vídeo).
   \item cálculo simples: em rede de largura de banda B podem ser admitidos s fluxos
 multimídia de largura de banda bs, desde que $\sum_{bs} <= B$
-  \item uma rede token ring com 10Mb/s pode suportar até 10 fluxos de vídeo digital de
+  \item uma rede token ring com 16Mb/s pode suportar até 10 fluxos de vídeo digital de
 1,5Mb/s.
 \end{itemize}
 \end{frame}
@@ -542,9 +639,10 @@ o tráfego agregado mostra semelhança com os fluxos individuais dos quais é co
 \begin{itemize}
   \item processos tem prioridades, determinada por critérios
   \item uso intenso de E/S recebem maior prioridade
-  \item em multimídia, prazos finais para distribuição dos dados altera no escalonamento
+  \item em multimídia, prazos finais para distribuição dos dados alteram o escalonamento
   \item exemplo típico: fluxo multimídia é recuperado do disco, enviado pela rede para
-uma estação destino, sincronizado com um fluxo proveniente de outra origem e exibido.
+uma estação destino, sincronizado com um fluxo proveniente de outra origem e 
+exibido: escalonamento de vários recursos
 \end{itemize}
 \end{frame}
 
@@ -553,13 +651,13 @@ uma estação destino, sincronizado com um fluxo proveniente de outra origem e e
 Escalonamento imparcial (fairness)
 \begin{itemize}
   \item fluxos concorrentes pelo mesmo recurso: imparcialidade para evitar que
-fluxos mal comportados ocupem larguda de banda em demasia
+fluxos mal comportados ocupem largura de banda em demasia
   \item estratégia simples: escalonamento em rodízio em fluxos da mesma classe
   \item trabalhos que realizam esse escalonamento pacote por pacote, e bit por 
-bit\footnote{pacotes não podem ser enviados bit a bit, mas data uma taxa de quadros é possível
+bit\footnote{pacotes não podem ser enviados bit a bit, mas dada uma taxa de quadros é possível
 calcular, para cada pacote, quando ele será enviado completamente}.
   \item é possível estabelecer que, para certos fluxos, um número maior de bits seja transmitido
-por ciclo: enfileiramento imparcial ponderado.
+por ciclo: enfileiramento imparcial ponderado (priorização no rodízio).
 \end{itemize}
 \end{frame}
 
@@ -598,10 +696,20 @@ pode amplificar erros
 MPEG\footnote{\url{http://www.axis.com/products/video/about_networkvideo/compression.htm}}}
   \begin{figure}[hbtp]
   \begin{center}
-   \includegraphics[scale=0.35]{mpeg_x_motionjpeg.png}
+   \includegraphics[scale=0.28]{mpeg_x_motionjpeg.png}
   \end{center}
   \end{figure}
 \end{frame}
+
+\begin{frame}
+ \frametitle{Compressão JPEG}
+  \begin{figure}[hbtp]
+  \begin{center}
+   \includegraphics[scale=0.28]{jpeg_compression.png}
+  \end{center}
+  \end{figure}
+\end{frame}
+
 
 
 \begin{frame}
@@ -611,7 +719,7 @@ MPEG\footnote{\url{http://www.axis.com/products/video/about_networkvideo/compres
    \item aceitável em aplicações não-interativas, apesar de possibilitar estouro de buffer
    \item aplicações interativas: se um fluxo estiver atrasado em seu tempo de término designado,
 sua taxa de término deverá ser aumentada até que ele esteja novamente no tempo certo: os quadros
- devem aparecer na saída assim que estiverem disponíveis. (COMPREENDER OU RETIRAR ESSA FRASE)
+ devem aparecer na saída assim que estiverem disponíveis.
   \end{itemize}
 \end{frame}
 
@@ -619,7 +727,7 @@ sua taxa de término deverá ser aumentada até que ele esteja novamente no temp
  \frametitle{Adaptação de FLuxo: mudanças na escala}
  \begin{itemize}
    \item adaptação realizada apenas no destino em um fluxo: sobrecarga persistirá
-   \item adaptar um fluxo para a larguda de banda disponível: mudança de escala
+   \item adaptar um fluxo para a largura de banda disponível: mudança de escala
    \item operação fundamental: fazer uma nova amostragem do sinal
    \item exemplos: áudio, eliminação de um canal estéreo; mudança de taxa de amostragem
  \end{itemize}
@@ -647,7 +755,7 @@ escala de tons;
  \begin{itemize}
    \item um monitor controla tempos de chegada de mensagens
    \item mensagens atrasadas indicam gargalos
-   \item uma mensagem para \emph{diminuir escala} é enviada, e a larguda do fluxo é
+   \item uma mensagem para \emph{diminuir escala} é enviada, e a largura do fluxo é
 reduzida; após algum período de tempo, a origem aumenta novamente a escala
   \end{itemize}
 \end{frame}
@@ -752,6 +860,17 @@ no mesmo cubs do disco i
 \end{frame}
 
 \begin{frame}
+ \frametitle{Servidor Tiger: armazenamento}
+
+  \begin{figure}[hbtp]
+ % \caption{Arquitetura Tiger\cite{Bolosky:1997}}
+  \begin{center}
+   \includegraphics[scale=0.28]{cubs_tiger.png}
+  \end{center}
+ \end{figure}
+\end{frame}
+
+\begin{frame}
  \frametitle{Servidor Tiger: escalonamento distribuído}
  \begin{itemize}
    \item organização por repartições (slots): cada repartição representa o trabalho a ser
@@ -774,20 +893,6 @@ O estado do visualizador é representado no escalonamento pelo(a):
        \item número de sequência no visualizador (a partir do qual calcula-se tempo de
 distribuição para o próximo bloco)
        \item algumas informações de contabilidade
- \end{itemize}
-\end{frame}
-
-\begin{frame}
- \frametitle{Servidor Tiger: escalonamento distribuído}
- \begin{itemize}
-       \item 
- \end{itemize}
-\end{frame}
-
-\begin{frame}
- \frametitle{Servidor Tiger: escalonamento distribuído}
- \begin{itemize}
-       \item
  \end{itemize}
 \end{frame}
 
@@ -825,7 +930,6 @@ compartilhado
 estado global coerente
    \item 
   \end{itemize}
-
 \end{frame}
 
 \begin{frame}
@@ -838,12 +942,9 @@ Windows NT
  \end{itemize}
 \end{frame}
 
-\begin{frame}
- \frametitle{Servidor Tiger: }
- \begin{itemize}
-  \item 
- \end{itemize}
-\end{frame}
+\section{Referências}
+
+\subsection{Adicionais}
 
 \begin{frame}
  \frametitle{Adicional: aplicações\cite{Maxlow:2003}}
@@ -889,7 +990,7 @@ os recursos são escassos
    FIM% - Obrigado
 \end{frame}
 
-\section{Referências}
+
 
 \bibliographystyle{plain}
 \bibliography{refs}
